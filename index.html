@@ -140,7 +140,7 @@
         })
         document.querySelector("nav").querySelectorAll("div").forEach((e) => {
             e.onclick = () => {
-                document.querySelectorAll("nav div").forEach((d) => d.classList.remove("click"));
+                document.querySelectorAll("nav div").forEach(d => d.classList.remove("click"));
                 e.classList.add("click");
                 document.querySelectorAll(".panels").forEach(p => p.classList.remove("active"));
                 const panels = {
