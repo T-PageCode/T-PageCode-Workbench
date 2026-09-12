@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>T-PageCode Workbench</title>
+    <style>
+        body{
+            background: linear-gradient(150deg,rgb(201, 247, 255),rgb(243, 204, 255));
+            background-attachment: fixed;
+            user-select: none;
+            margin: 0;
+            overflow: hidden;
+        }
+        *{
+            font-weight: 200;
+        }
+        nav{
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            height: 90%;
+            width: 200px;
+            background-color: rgb(255,255,255);
+            border-radius: 20px;
+            filter: drop-shadow(0 0 15px rgb(0,0,0,0.25));
+            text-align: center;
+            transition: filter 0.5s ease;
+        }
+        nav:hover{
+            filter: drop-shadow(0 0 30px rgb(0,0,0,0.25));
+        }
+        nav h1{
+            font-size: 25px;
+        }
+        nav div{
+            width: 90%;
+            height: 40px;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.5s ease;
+            border-radius: 15px;
+            margin-top: 10px;
+        }
+        nav div:hover{
+            background-color: rgb(235,235,235);
+        }
+        nav div::before{
+            position: absolute;
+            border-radius: 15px;
+            content: attr(data-content);
+            width: 90%;
+            height: 40px;
+            background: linear-gradient(90deg,rgb(183, 247, 255),rgb(237, 176, 255));
+            opacity: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        nav div.click::before{
+            opacity: 1;
+        }
+        .panels{
+            position: absolute;
+            top: 50%;
+            left: 240px;
+            transform: translateY(50%) scale(0.5);
+            filter: drop-shadow(0 0 15px rgb(0,0,0,0.25));
+            background-color: white;
+            width: calc(100% - 260px); 
+            height: 90%;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease,
+            transform 0.5s ease,
+            filter 0.5s ease;
+        }
+        .panels:hover{
+            filter: drop-shadow(0 0 30px rgb(0,0,0,0.25));
+        }
+        .panels.active{
+            opacity: 1;
+            transform: translateY(-50%) scale(1);
+        }
+        ul{
+            list-style-type: none;
+        }
+        .panels h1,.panels p,.panels ul{
+            margin-left: 30px;
+        }
+        li::before {
+            content: ">";
+            margin-right: 10px;
+            color: rgb(0, 102, 255);
+        }
+        a{
+            text-decoration: none;
+            color: rgb(111, 0, 255);
+            transition: color 0.5s ease;
+        }
+        a:hover{
+            color: rgb(68, 0, 156);
+        }
+        a:active{
+            color: rgb(32, 0, 75);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>T-PageCode Workbench</h1>
+        <div id="home-btn" data-content="主页">主页</div>
+        <div id="github-btn" data-content="GitHub">GitHub</div>
+    </nav>
+    <div id="github-div" class="panels">
+        <h1>GitHub</h1>
+        <p>GitHub的链接是:
+            <ul>
+                <li><a href="https://github.com/T-PageCode">https://github.com/T-PageCode</a></li>
+                <li><a href="https://T-PageCode.github.io">https://T-PageCode.github.io</a></li>
+            </ul>
+        </p>
+    </div>
+    <div id="home-div" class="panels">
+        <h1>T-PageCode Workbench</h1>
+        <p>T-PageCode开发工作台</p>
+    </div>
+    <script>
+        document.addEventListener("contextmenu",(e) => {
+            e.preventDefault();
+        })
+        document.querySelectorAll("*").forEach((e) => {
+            e.draggable = false;
+        })
+        document.querySelectorAll("a").forEach((e) => {
+            e.target = "_blank";
+        })
+        document.querySelector("nav").querySelectorAll("div").forEach((e) => {
+            e.onclick = () => {
+                document.querySelectorAll("nav div").forEach((d) => d.classList.remove("click"));
+                e.classList.add("click");
+                document.querySelectorAll(".panels").forEach(p => p.classList.remove("active"));
+                const panels = {
+                    "home-btn":"home-div",
+                    "github-btn":"github-div"
+                };
+                const panelId = panels[e.id];
+                if (panelId) {
+                    document.getElementById(panelId).classList.add("active");
+                }
+            }
+        })
+    </script>
+</body>
+</html>
