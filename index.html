@@ -88,8 +88,14 @@
         ul{
             list-style-type: none;
         }
-        .panels h1,.panels p,.panels ul{
+        .panels h1,.panels p,.panels ul,.panels iframe{
             margin-left: 30px;
+        }
+        .panels iframe{
+            width: 680px;
+            height: 450px;
+            border: 1px solid rgb(243, 204, 255);
+            border-radius: 20px;
         }
         li::before {
             content: ">";
@@ -113,6 +119,7 @@
     <nav>
         <h1>T-PageCode Workbench</h1>
         <div id="home-btn" data-content="主页">主页</div>
+        <div id="blogs-btn" data-content="Blogs">Blogs</div>
         <div id="github-btn" data-content="GitHub">GitHub</div>
     </nav>
     <div id="github-div" class="panels">
@@ -127,6 +134,14 @@
     <div id="home-div" class="panels">
         <h1>T-PageCode Workbench</h1>
         <p>T-PageCode开发工作台</p>
+    </div>
+    <div id="blogs-div" class="panels">
+        <h1>Blogs</h1>
+        <p>Iframe查看Blogs</p>
+        <iframe id="blogs-iframe" src="https://T-PageCode.github.io/Blogs"></iframe>
+        <ul>
+            <li><a href="https://T-PageCode.github.io/Blogs">https://T-PageCode.github.io/Blogs</a></li>
+        </ul>
     </div>
     <script>
         document.addEventListener("contextmenu",(e) => {
@@ -145,7 +160,8 @@
                 document.querySelectorAll(".panels").forEach(p => p.classList.remove("active"));
                 const panels = {
                     "home-btn":"home-div",
-                    "github-btn":"github-div"
+                    "github-btn":"github-div",
+                    "blogs-btn":"blogs-div"
                 };
                 const panelId = panels[e.id];
                 if (panelId) {
